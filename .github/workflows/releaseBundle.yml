@@ -54,17 +54,11 @@ jobs:
         run: |
           cd android && ./gradlew bundleRelease --build-cache && cd ..
 
-      - name: Slack Action
-        uses: MeilCli/slack-upload-file@v1
-        continue-on-error: true
+      - name: Upload Bundle
+        uses: actions/upload-artifact@v1
         with:
-          slack_token: ${{ secrets.SLACK_TOKEN }}
-          channels: ${{ secrets.SLACK_CHANNEL_ID }}
-          file_path: android/app/build/outputs/bundle/release/app-release.aab
-          file_name: 'app-release.aab'
-          file_type: 'aab'
-          title: 'RN-Dating Release Bundle'
-          initial_comment: '${{ github.event_name }} - deployed the apk file to slack'
+          name: app-release.aab
+          path: android/app/build/outputs/bundle/release/app-release.aab
 
       - name: Zip Symbols
         run: |
@@ -81,3 +75,9 @@ jobs:
           file_type: 'zip'
           title: 'RN-Dating Symbols Zip File'
           initial_comment: '${{ github.event_name }} - deployed the apk file to slack'
+
+      - name: Upload Bundle
+        uses: actions/upload-artifact@v1
+        with:
+          name: symbols.zip
+          path: android/app/build/intermediates/merged_native_libs/release/out/lib/symbols.zip
