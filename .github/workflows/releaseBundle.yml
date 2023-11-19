@@ -64,18 +64,6 @@ jobs:
         run: |
           cd android/app/build/intermediates/merged_native_libs/release/out/lib/ && zip -r symbols.zip *
 
-      - name: Slack Action
-        uses: MeilCli/slack-upload-file@v1
-        continue-on-error: true
-        with:
-          slack_token: ${{ secrets.SLACK_TOKEN }}
-          channels: ${{ secrets.SLACK_CHANNEL_ID }}
-          file_path: android/app/build/intermediates/merged_native_libs/release/out/lib/symbols.zip
-          file_name: 'symbols.zip'
-          file_type: 'zip'
-          title: 'RN-Dating Symbols Zip File'
-          initial_comment: '${{ github.event_name }} - deployed the apk file to slack'
-
       - name: Upload Bundle
         uses: actions/upload-artifact@v1
         with:
