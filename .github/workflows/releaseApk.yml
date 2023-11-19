@@ -52,8 +52,8 @@ jobs:
         with:
           slack_token: ${{ secrets.SLACK_TOKEN }}
           channels: ${{ secrets.SLACK_CHANNEL_ID }}
-          file_path: android/app/build/outputs/apk/release/app-arm64-v8a-release.apk
-          file_name: 'app-arm64-v8a-release.apk'
+          file_path: android/app/build/outputs/apk/release/app-release.apk
+          file_name: 'app-release.apk'
           file_type: 'apk'
           title: 'RN-Dating Release Apk'
           initial_comment: '${{ github.event_name }} - deployed the apk file to slack'
